@@ -1,0 +1,245 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #007bff;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: white !important;
+}
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+    color: white !important;
+    margin-left: 12px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #dfe6e9 !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+
+
+
+/*CARDS SECTION*/
+
+/* Hospital Cards Container */
+.hospital-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Individual Hospital Card */
+.hospital-card {
+    width: 100%;
+    max-width: 300px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover Effect */
+.hospital-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Hospital Image */
+.hospital-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Hospital Name */
+.hospital-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Description & Address */
+.hospital-card p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+/* Select Button */
+.hospital-card button {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hospital-card button:hover {
+    background: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hospital-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .hospital-card {
+        max-width: 250px;
+    }
+}
+
+
+/* FOOTER SECTION*/
+/* Footer Styling */
+footer {
+    background: #222;
+    color: white;
+    padding: 30px 10px;
+    text-align: center;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Footer Sections */
+.footer-section {
+    margin: 10px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.footer-section p, .footer-section a {
+    font-size: 14px;
+    color: #ddd;
+    text-decoration: none;
+    margin: 5px 0;
+    display: block;
+}
+
+/* Social Icons */
+.footer-section a img {
+    width: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Hover Effects */
+.footer-section a:hover {
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/*PARAGRAPH */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Responsive Container */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Headings */
+h2 {
+    font-size: 22px;
+    color: #007bff;
+    margin-top: 20px;
+}
+
+/* Benefits List */
+.benefits {
+    margin-top: 10px;
+}
+
+.benefits p {
+    margin-bottom: 10px;
+}
+
+.benefits strong {
+    color: #222;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+}

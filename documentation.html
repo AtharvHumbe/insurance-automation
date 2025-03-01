@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Documentation Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: medium;
+            background: linear-gradient(to right, #cac3d1, #0b1d3b);
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(to bottom, white, #cce5ff);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid blue;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            border: 2px solid blue;
+            border-radius: 5px;
+        }
+        .navbar {
+            background-color: #007bff;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: bold;
+            color: white !important;
+        }
+        .navbar-nav .nav-link {
+            font-size: 16px;
+            color: white !important;
+            margin-left: 12px;
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #dfe6e9 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MedInsure</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/oc/login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hospital.html">Hospital partners</a></li>
+                    <li class="nav-item"><a class="nav-link" href="documentation.html">Documents Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center">User Documentation</h2>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <!-- Upload Fields (No OCR Applied) -->
+            <div class="form-group">
+                <label for="idProof">Upload ID Proof:</label>
+                <input type="file" class="form-control" id="idProof" name="idProof">
+            </div>
+            <div class="form-group">
+                <label for="addressProof">Upload Address Proof:</label>
+                <input type="file" class="form-control" id="addressProof" name="addressProof">
+            </div>
+            <div class="form-group">
+                <label for="insuranceDoc">Upload Insurance Document:</label>
+                <input type="file" class="form-control" id="insuranceDoc" name="insuranceDoc">
+            </div>
+
+            <!-- Only this field will have OCR applied -->
+            <div class="form-group">
+                <label for="medicalReport">Upload Medical Report:</label>
+                <input type="file" class="form-control" id="medicalReport" name="medicalReport" required>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+        <!-- Display extracted data -->
+        <div id="extractedData" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById("uploadForm").onsubmit = async function(event) {
+            event.preventDefault();
+
+            let formData = new FormData();
+            
+            // Get form fields
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
+            let medicalReport = document.getElementById("medicalReport").files[0];
+
+            // Append form fields to FormData
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("file", medicalReport);  // Only this file is processed by OCR
+
+            try {
+                let response = await fetch("http://127.0.0.1:5000/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let data = await response.json();
+
+                if (response.ok) {
+                    // Store user data in Supabase
+                    await fetch("http://127.0.0.1:5000/store", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            phone: phone
+                        })
+                    });
+
+                    document.getElementById("extractedData").innerHTML = 
+                        `<h3>Extracted Data:</h3><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    alert("Form submitted successfully!");
+                } else {
+                    alert("Error: " + (data.error || "Failed to submit form."));
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        };
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

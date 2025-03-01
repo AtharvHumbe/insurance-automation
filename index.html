@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Medical Insurance Verification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    font-size: 18px; /* Increase base font size */
+}
+
+h1 {
+    font-size: 52px; /* Increase hero section heading */
+}
+
+h2 {
+    font-size: 40px; /* Increase section headings */
+}
+
+h3 {
+    font-size: 28px; /* Increase smaller headings */
+}
+
+p {
+    font-size: 20px; /* Increase paragraph text */
+}
+
+.navbar-brand {
+    font-size: 24px; /* Increase navbar brand size */
+}
+
+.nav-link {
+    font-size: 18px; /* Increase navbar link size */
+}
+
+.hero p {
+    font-size: 22px; /* Increase hero section text */
+}
+
+.btn {
+    font-size: 20px; /* Increase button text size */
+}
+
+.carousel-item h3 {
+    font-size: 30px; /* Increase feature slide heading */
+}
+
+.carousel-item p {
+    font-size: 22px; /* Increase feature slide text */
+}
+
+.navbar {
+    background-color: #007bff;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+    color: white !important;
+    margin-left: 12px;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #dfe6e9 !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('DALL·E 2025-03-01 14.25.22 - A modern and professional background image for a medical insurance claim website. The design should include abstract healthcare elements such as a dig.webp');
+            opacity: 50;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .hero .btn {
+            transition: transform 0.3s ease;
+        }
+        .hero .btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .features, .testimonials, .faq, .blog {
+            padding: 50px 20px;
+        }
+        .feature-box, .testimonial-box {
+            text-align: center;
+            padding: 20px;
+        }
+        .cta {
+            background: #007bff;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            height: 30px;
+            background-color: #28a745;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            width: 0%;
+            transition: width 2s;
+        }
+        .reimbursement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .reimbursement-table th, .reimbursement-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .reimbursement-table th {
+            background-color: #f4f4f4;
+        }
+        .check {
+            color: green;
+            font-size: 20px;
+        }
+        .cross {
+            color: red;
+            font-size: 20px;
+        }
+        /* Increase FAQ Section Text Size */
+#faq h2 {
+    font-size: 40px; /* Increase FAQ heading size */
+}
+
+#faq p, #faq li {
+    font-size: 22px; /* Increase FAQ text size */
+}
+
+    /* Styling for Testimonial Images */
+.testimonial-img {
+    width: 150px;  /* Adjust width */
+    height: 150px; /* Adjust height */
+    object-fit: cover; /* Ensures the image fits properly */
+    border: 3px solid #007bff; /* Blue border */
+    padding: 7px;
+}
+.blog-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between boxes */
+}
+
+.blog-box {
+    height: 250px; /* Ensures equal height */
+    padding: 20px;
+    
+    text-align: center;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+    </style>
+</head>
+<body>
+    
+
+     <!-- Navigation Bar -->
+     <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MedInsure</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="oc/login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="hospital.html">Hospital partners</a></li>
+                    <li class="nav-item"><a class="nav-link" href="documentation.html">Documents Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
+    
+    <section class="hero">
+        <h1>Revolutionizing Medical Insurance Verification with AI</h1>
+        <p>Instant claim validation and seamless reimbursement processing at your fingertips.</p>
+        <a href="#features" class="btn btn-primary btn-lg" onclick="showFeatureSlide()">Explore Features</a>
+
+    </section>
+
+    <!-- Features Carousel -->
+<section id="features" class="container my-5">
+    <h2 class="text-center">Key Features</h2>
+    <div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="text-center p-5">
+                    <h3>AI-Powered Claim Processing</h3>
+                    <p>Automated verification of medical insurance claims using advanced AI algorithms.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="text-center p-5">
+                    <h3>Instant Eligibility Check</h3>
+                    <p>Real-time eligibility assessment for medical claims, reducing waiting time.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="text-center p-5">
+                    <h3>Seamless Documentation</h3>
+                    <p>Upload and validate medical documents instantly with OCR technology.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featureCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featureCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
+
+   
+
+    <!-- Reimbursement Claim Section -->
+    <section class="reimbursement container">
+        <h2 class="text-center">Documents Required for a Reimbursement Claim</h2>
+        <table class="reimbursement-table">
+            <tr>
+                <th>List of Documents</th>
+                <th>Hospitalisation Claim</th>
+                <th>Pre / Post Hospitalisation Claim</th>
+                <th>Out Patient Claim</th>
+            </tr>
+            <tr>
+                <td>Claim Form</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>KYC Form</td>
+                <td class="check">&#10004;</td>
+                <td class="cross">&#10008;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>NEFT Form</td>
+                <td class="check">&#10004;</td>
+                <td class="cross">&#10008;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>Cancelled Cheque Copy</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>Health Card Copy</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>Government-issued ID proof</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>Discharge summary (with details of complaint & treatment availed)</td>
+                <td class="check">&#10004;</td>
+                <td class="cross">&#10008;</td>
+                <td class="cross">&#10008;</td>
+            </tr>
+            <tr>
+                <td>Final hospital bill (with detailed break-up, along with interim bills & payment receipts)</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>All investigation reports (blood reports, X-rays, sonography, CT scan, MRI, etc.)</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>All pharmacy bills supported by doctor's prescription</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>Implant sticker / invoice, if used (e.g., lens details in cataract case, stent details in angioplasty)</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>In specific cases, a Medico Legal Certificate (MLC) is needed. An FIR copy is required for all accidental cases.</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+            <tr>
+                <td>In case of miscellaneous charges, we require bills with a supporting prescription of the treating doctor.</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+                <td class="check">&#10004;</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials container text-center">
+        <h2 class="text-center">What Our Users Say</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <img src="images/alex-suprun-ZHvM3XIOHoE-unsplash.jpg" alt="user1"  class="testimonial-img rounded-circle mx-auto d-block">
+                    <p>"This AI-powered verification system has reduced our claim processing time by 50%! Highly recommend it!"</p>
+                    <h4>- Dr. Sarah Patel, City Hospital</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <img src="images/alexander-hipp-iEEBWgY_6lA-unsplash.jpg" alt="user2"  class="testimonial-img rounded-circle mx-auto d-block">
+                    <p>"A game-changer for insurers. Faster verifications mean better service for our customers."</p>
+                    <h4>- Mark Johnson, Insurance Provider</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <img src="images/jurica-koletic-7YVZYZeITc8-unsplash.jpg" alt="user3"  class="testimonial-img rounded-circle mx-auto d-block">
+                    <p>"As a patient, this platform made my claim process seamless. No more endless paperwork!"</p>
+                    <h4>- Emily Ross, Patient</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog container" id="blog">
+        <h2 class="text-center">Latest Updates & Insights</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    
+                    <div class="blog-box">
+                        <h5 class="card-title">How AI is Revolutionizing Medical Insurance</h5>
+                        <p class="card-text">AI-driven automation is streamlining claims processing, reducing errors, and improving efficiency in the healthcare industry.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    
+                    <div class="blog-box">
+                        <h5 class="card-title">Ensuring Data Security in AI-Based Insurance Systems</h5>
+                        <p class="card-text">Learn about the latest encryption and security measures that protect sensitive patient and insurer data.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                   
+                    <div class="blog-box">
+                        <h5 class="card-title">The Future of Claims Processing with AI</h5>
+                        <p class="card-text">Discover how AI is shaping the future of medical claims processing and what to expect in the coming years.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQs Section with Dropdown -->
+    <section class="faq container" id="faq">
+        <h2 class="text-center">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                        How does the AI verify claims?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Our AI uses OCR and NLP to validate medical records, ensuring fast and accurate processing.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                        Is my data secure?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes, we use advanced encryption and security measures to protect patient and insurer data.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                        How long does claim processing take?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        With AI automation, most claims are processed within minutes, reducing delays significantly.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 MedInsure AI. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        function showFeatureSlide() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
